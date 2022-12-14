@@ -6,7 +6,7 @@ This is a typescript package that contains classes for checking a 3D file, in gl
 
 This package can be used by both a command line interface (node), as well as a front-end web interface. The samples directory includes a command line interface (cli) as well as a web-based implementation to demonstrate how the package can be used in your own project.
 
-Some of the checks can be **_SLOW_** for files with a lot of triangles. This is because the gltf format only stores geometry as indivdual triangles with independant vertices. If a test relies on shared edges, those edges have to be computed by checking each vertex's XYZ and/or UV location for a match. Beveled Edges and Non-Manifold edges both require XYZ edge computation. UV Gutter Width and UV Overlaps both require UV triangle computation. Each of those computations take about the same O(n log n) time, where n is the number of triangles. Typical run time without either of those computations is under 5 seconds, but if both types need to be run the test can take over a minute.
+Some of the checks can be **_SLOW_** for files with a lot of triangles. This is because the gltf format only stores geometry as individual triangles with independent vertices. If a test relies on shared edges, those edges have to be computed by checking each vertex's XYZ and/or UV location for a match. Beveled Edges and Non-Manifold edges both require XYZ edge computation. UV Gutter Width and UV Overlaps both require UV triangle computation. Each of those computations take about the same O(n log n) time, where n is the number of triangles. Typical run time without either of those computations is under 5 seconds, but if both types need to be run the test can take over a minute.
 
 ## Checks available
 
@@ -33,11 +33,11 @@ Some of the checks can be **_SLOW_** for files with a lot of triangles. This is 
 
 ## Product Info JSON file
 
-For testing product dimensional tollerance, we need to know the dimensions of the product. The product info json file is used to provide that information. The product dimensions specified in the Scheam json file are different and more like a viewer bounding box check, but the percent tolerance value is used for both.
+For testing product dimensional tolerance, we need to know the dimensions of the product. The product info json file is used to provide that information. The product dimensions specified in the schema json file are different and more like a viewer bounding box check, but the percent tolerance value is used for both.
 
 # Schema JSON file
 
-The schema is used to specify which checks are run and what the passing values are. Ommitted values will use the default recommendations of the Khronos 3D Commerce Asset Creation Guidelines, which are set in Schema.ts. To turn off a test that would normally run by default, -1 should be specified for parameters of type number and false for booleans.
+The schema is used to specify which checks are run and what the passing values are. Omitted values will use the default recommendations of the Khronos 3D Commerce Asset Creation Guidelines, which are set in Schema.ts. To turn off a test that would normally run by default, -1 should be specified for parameters of type number and false for booleans.
 
 ## Version
 
@@ -63,7 +63,7 @@ The number of all materials used in the entire file.
 
 ## Model Attributes
 
-**_model?: {...}_**
+**_model?: {...}, _**
 
 This group of values is related to objects and geometry
 
@@ -73,11 +73,15 @@ This group of values is related to objects and geometry
 
 The number of objects can impact performance. Each primitive uses a separate draw call(s), based on the number of textures in its material.
 
+---
+
 **_nodes?: { maximum?: number }_** (-1)
 
 **_nodes?: { minimum?: number }_** (-1)
 
 Nodes establish parent / child structure between meshes.
+
+---
 
 **_meshes?: { maximum?: number }_** (-1)
 
@@ -85,11 +89,15 @@ Nodes establish parent / child structure between meshes.
 
 Meshes are a groups of one or more primitives.
 
+---
+
 **_primitives?: { maximum?: number }_** (-1)
 
 **_primitives?: { minimum?: number }_** (-1)
 
 Primitives are collection of triangles that use one material.
+
+---
 
 ### Beveled Edges
 
@@ -119,11 +127,11 @@ Specifies the range of number of triangles in the file.
 
 ## Product Info
 
-// TODO: May want to move this into the object group if it's not relelated to the product info json file data.
-
 ### Dimensions
 
-This check also requires a product info json file to provide the target dimensions.
+These dimensions can be thought of as a bounding box of what range a model size should fall within and is defined at the schema level, making it a test for all models. The test can help identify assets that are scaled incorrectly.
+
+Dimensions provided separately with a product info json file are specific to a single model, which would likely come from an internal database. Both dimensional checks will use the percent tolerance value here to determine pass/fail.
 
 **_product?: { dimensions?: { height?: { maximum?: number } } }_**
 
@@ -131,21 +139,21 @@ This check also requires a product info json file to provide the target dimensio
 
 **_product?: { dimensions?: { height?: { percentTolerance?: number } } }_**
 
+---
+
 **_product?: { dimensions?: { length?: { maximum?: number } } }_**
 
 **_product?: { dimensions?: { length?: { minimum?: number } } }_**
 
 **_product?: { dimensions?: { length?: { percentTolerance?: number } } }_**
 
+---
+
 **_product?: { dimensions?: { width?: { maximum?: number } } }_**
 
 **_product?: { dimensions?: { width?: { minimum?: number } } }_**
 
 **_product?: { dimensions?: { width?: { percentTolerance?: number } } }_**
-
-Checks that the height is within a specified range +/- a given tolerance
-// TODO: it seems like tolerance is the only value that should be here in the product object
-// min/max should be provided via product info json and possibly also at the model object, with without tolerance
 
 ## Textures
 
@@ -157,7 +165,7 @@ Checks that the height is within a specified range +/- a given tolerance
 
 **_height?: { minimum?: number }_** (512)
 
-The width of the texture maps.
+The height of the texture maps.
 
 ### PBR Color Range
 
@@ -165,7 +173,7 @@ The width of the texture maps.
 
 **_pbrColorRange?: { minimum?: number }_** (30)
 
-The min/max luminosity value of every pixel in every texture image. For the rendering engine to be able to add or subtract light from the texture, additional headroom should be available.
+The min/max luminosity value of every pixel in the diffuse texture images. For the rendering engine to be able to add or subtract light from the texture, additional headroom should be available.
 
 ### Dimensions Power of Two
 
@@ -205,7 +213,7 @@ The width of the texture maps.
 
 The gutter width is related to spacing between UV islands to prevent texture bleed when scaling to various resolutions, typically through mip mapping.
 
-The number of pixels of padding required can be specified against various base resolutions. Only one of these needs to be specified and if there are more than one, the smallest computed grid size will be used. For example, specifying a value of 8 for resolution1024 yields grid size of 128, meaning that there needs to be at least 1px buffer between islands when resized to 128px. A value of 2 for resolution256 gives the same grid size of 128, wheras a value of 4 for resolution256 gives 64. If both resolution256: 4 and resolution1024: 8 are provided, the smaller grid size of 64px will be used for the test.
+The number of pixels of padding required can be specified against various base resolutions. Only one of these needs to be specified and if there are more than one, the smallest computed grid size will be used. For example, specifying a value of 8 for resolution1024 yields grid size of 128, meaning that there needs to be at least 1px buffer between islands when resized to 128px. A value of 2 for resolution256 gives the same grid size of 128, whereas a value of 4 for resolution256 gives 64. If both resolution256: 4 and resolution1024: 8 are provided, the smaller grid size of 64px will be used for the test.
 
 ### Not Inverted
 
@@ -225,10 +233,10 @@ UV triangles should not overlap
 
 **_pixelsPerMeter?: { minimum?: number }_** (-1)
 
-The min and max texel density of all triangles in the model based upon the largest and smallest texture sizes.
+The min and max texel density of all triangles in the model based upon the largest and smallest texture sizes. This value is high when the UV area contains a lot of pixels that get squeezed into a small face and low when the UV area doesn't cover many pixels that get spread across a large face.
 
 ### UVs in 0-1 Range
 
 **_requireRangeZeroToOne?: boolean_** (false)
 
-UV triangles should be in the 0-1 space.
+UV triangles should be in the 0-1 space when using atlas based textures that do not repeat, which is common practice for realtime assets.
