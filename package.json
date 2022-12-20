@@ -1,0 +1,40 @@
+{
+  "name": "@khronosgroup/3dc-validator",
+  "version": "1.0.0",
+  "author": "Mike Festa",
+  "description": "Package for checking a 3D model file against a 3D Commerce use case schema to provide PASS/FAIL validation",
+  "license": "SPDX-License-Identifier: Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KhronosGroup/3DC-Validator"
+  },
+  "exports": {
+    ".": "./dist/Validator.js"
+  },
+  "main": "dist/Validator.js",
+  "type": "module",
+  "keywords": [
+    "3d",
+    "asset",
+    "commerce",
+    "glb",
+    "gltf",
+    "khronos",
+    "validator"
+  ],
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@babylonjs/core": "^5.18.0",
+    "@babylonjs/loaders": "^5.18.0",
+    "canvas": "^2.10.1",
+    "gltf-validator": "^2.0.0-dev.3.9"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.4",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.0",
+    "typescript": "^4.7.4"
+  }
+}

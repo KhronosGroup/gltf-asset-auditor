@@ -173,7 +173,7 @@ The height of the texture maps.
 
 **_pbrColorRange?: { minimum?: number }_** (30)
 
-The min/max luminosity value of every pixel in the diffuse texture images. For the rendering engine to be able to add or subtract light from the texture, additional headroom should be available.
+The min/max luminosity value of every pixel in the base color texture images. For the rendering engine to be able to add or subtract light from the texture, additional headroom should be available.
 
 ### Dimensions Power of Two
 
