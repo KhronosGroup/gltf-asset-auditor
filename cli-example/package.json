@@ -6,7 +6,7 @@
   "license": "SPDX-License-Identifier: Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KhronosGroup/3DC-Validator/cli-example"
+    "url": "https://github.com/KhronosGroup/3DC-Validator"
   },
   "main": "index.js",
   "type": "module",
