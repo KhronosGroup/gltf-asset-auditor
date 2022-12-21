@@ -31,6 +31,13 @@ Some of the checks can be **_SLOW_** for files with a lot of triangles. This is 
 - UV Overlaps (**_SLOW_**)
 - UV Gutter Width (**_SLOW_**)
 
+## Example Implementations
+
+There are two example implementations included:
+
+- cli-example: Runs from a command line interface using Node.js
+- web-example: Single page application that runs from the browser
+
 ## Product Info JSON file
 
 For testing product dimensional tolerance, we need to know the dimensions of the product. The product info json file is used to provide that information. The product dimensions specified in the schema json file are different and more like a viewer bounding box check, but the percent tolerance value is used for both.
