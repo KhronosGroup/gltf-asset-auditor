@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0-rc.1",
+  "fileSizeInKb": {
+    "maximum": -1,
+    "minimum": 1024
+  }
+}

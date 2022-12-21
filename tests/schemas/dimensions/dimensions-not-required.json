@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-rc.1",
+  "product": {
+    "dimensions": {
+      "height": {
+        "maximum": -1,
+        "minimum": -1
+      },
+      "length": {
+        "maximum": -1,
+        "minimum": -1
+      },
+      "width": {
+        "maximum": -1,
+        "minimum": -1
+      }
+    }
+  }
+}

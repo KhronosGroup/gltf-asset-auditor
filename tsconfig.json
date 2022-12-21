@@ -14,6 +14,7 @@
     "sourceMap": true,
     "types": [
       "node",
+      "mocha"
     ],
     "baseUrl": ".",
     "paths": {

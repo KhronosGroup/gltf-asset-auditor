@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0-rc.1",
+  "model": {
+    "objectCount": {
+      "meshes": {
+        "maximum": -1
+      },
+      "nodes": {
+        "maximum": -1
+      },
+      "primitives": {
+        "maximum": -1
+      }
+    }
+  }
+}

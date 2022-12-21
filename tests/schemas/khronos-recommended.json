@@ -1,0 +1,78 @@
+{
+  "version": "1.0.0-rc.1",
+  "fileSizeInKb": {
+    "maximum": 5120,
+    "minimum": -1
+  },
+  "materials": {
+    "maximum": 5,
+    "minimum": -1
+  },
+  "model": {
+    "objectCount": {
+      "nodes": {
+        "maximum": 5,
+        "minimum": -1
+      },
+      "meshes": {
+        "maximum": 5,
+        "minimum": -1
+      },
+      "primitives": {
+        "maximum": 5,
+        "minimum": -1
+      }
+    },
+    "requireBeveledEdges": false,
+    "requireCleanRootNodeTransform": true,
+    "requireManifoldEdges": false,
+    "triangles": {
+      "maximum": 100000,
+      "minimum": -1
+    }
+  },
+  "product": {
+    "dimensions": {
+      "height": {
+        "maximum": 100.0,
+        "minimum": 0.01,
+        "percentTolerance": 3
+      },
+      "length": {
+        "maximum": 100.0,
+        "minimum": 0.01,
+        "percentTolerance": 3
+      },
+      "width": {
+        "maximum": 100.0,
+        "minimum": 0.01,
+        "percentTolerance": 3
+      }
+    }
+  },
+  "textures": {
+    "height": {
+      "maximum": 2048,
+      "minimum": 512
+    },
+    "pbrColorRange": {
+      "maximum": 240,
+      "minimum": 30
+    },
+    "requireDimensionsBePowersOfTwo": true,
+    "requireDimensionsBeQuadratic": false,
+    "width": {
+      "maximum": 2048,
+      "minimum": 512
+    }
+  },
+  "uvs": {
+    "pixelsPerMeter": {
+      "maximum": 100000,
+      "minimum": -1
+    },
+    "requireNotInverted": true,
+    "requireNotOverlapping": true,
+    "requireRangeZeroToOne": true
+  }
+}

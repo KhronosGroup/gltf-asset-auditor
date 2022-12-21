@@ -1,0 +1,22 @@
+{
+  "version": "1.0.0-rc.1",
+  "product": {
+    "dimensions": {
+      "height": {
+        "maximum": 1,
+        "minimum": -1,
+        "percentTolerance": 3
+      },
+      "length": {
+        "maximum": 1,
+        "minimum": -1,
+        "percentTolerance": 3
+      },
+      "width": {
+        "maximum": 1,
+        "minimum": -1,
+        "percentTolerance": 3
+      }
+    }
+  }
+}

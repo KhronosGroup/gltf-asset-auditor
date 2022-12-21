@@ -38,6 +38,10 @@ There are two example implementations included:
 - cli-example: Runs from a command line interface using Node.js
 - web-example: Single page application that runs from the browser
 
+## Unit Tests
+
+TODO: I need to copy the unit tests project here.
+
 ## Product Info JSON file
 
 For testing product dimensional tolerance, we need to know the dimensions of the product. The product info json file is used to provide that information. The product dimensions specified in the schema json file are different and more like a viewer bounding box check, but the percent tolerance value is used for both.
