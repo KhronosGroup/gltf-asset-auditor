@@ -1,0 +1,39 @@
+{
+  "name": "@khronosgroup/3dc-validator-web",
+  "version": "1.0.0",
+  "description": "Web based single page application implementation of the 3dc-validator package",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "help": "webpack --help",
+    "init": "webpack-cli init",
+    "start": "webpack --config webpack.config.js --watch",
+    "build": "webpack --mode=production --node-env=production",
+    "build:dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production --node-env=production",
+    "watch": "webpack --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KhronosGroup/3DC-Validator"
+  },
+  "keywords": [
+    "khronos",
+    "3d",
+    "asset",
+    "validator"
+  ],
+  "author": "Mike Festa",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@babylonjs/core": "^5.35.1",
+    "@babylonjs/loaders": "^5.35.1",
+    "@mikefesta/3dc-validator": "^1.0.0"
+  },
+  "devDependencies": {
+    "ts-loader": "^9.3.1",
+    "tslib": "^2.4.0",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
