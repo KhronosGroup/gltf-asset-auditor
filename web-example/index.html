@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>3D Commerce Validator</title>
+    <title>glTF Asset Auditor</title>
     <style>
       /* style elements are inline here for simplicity */
       body {
@@ -159,28 +159,28 @@
 
     <div class="heading">
       <div class="version" id="version"></div>
-      <div class="title">3D Commerce Validator</div>
+      <div class="title">glTF Asset Auditor</div>
       <div class="github">
-        <a href="https://github.com/KhronosGroup/3DC-Validator/web-example">https://github.com/KhronosGroup/3DC-Validator/web-example</a>
+        <a href="https://github.com/KhronosGroup/gltf-asset-auditor/web-example">https://github.com/KhronosGroup/gltf-asset-auditor/web-example</a>
       </div>
     </div>
 
     <div class="introduction">
-      <strong>Welcome to the Khronos 3D Commerce Asset Validator!</strong>
+      <strong>Welcome to the Khronos glTF Asset Auditor!</strong>
       <p>
         This is a web-based example implementation of the
-        <a href="https://github.com/KhronosGroup/3DC-Validator">3DC-validator</a>.
-        It allows you to quickly check a glTF file for a specific use case, defined by a schema.
+        <a href="https://github.com/KhronosGroup/gltf-asset-auditor">gltf-asset-auditor</a>.
+        It allows you to quickly check a glTF file for a specific use case, defined by an audit profile.
         Use cases could include publishing to a specific retailer or advertising platform.
-        The Khronos Group invites companies to provide a link to their schemas for us to publish.
+        The Khronos Group invites companies to provide a link to their audit profiles for us to publish.
       </p>
       <p>
-        You can use the same npm package in your own Node or browser-based project for automated 3D asset validation. See <a href="https://github.com/KhronosGroup/3DC-Validator/tree/main/cli-example">https://github.com/KhronosGroup/3DC-Validator/tree/main/cli-example</a>.
+        You can use the same npm package in your own Node or browser-based project for automated 3D asset validation. See <a href="https://github.com/KhronosGroup/gltf-asset-auditor/tree/main/cli-example">https://github.com/KhronosGroup/gltf-asset-auditor/tree/main/cli-example</a>.
       </p>
     </div>
 
     <div class="section">
-      <h3>1. Validation Schema (optional - recommended used by default)</h3>
+      <h3>1. Audit Profile (optional - recommended used by default)</h3>
       <p class="instructions">
         The 3D Commerce recommended values are based on the <a href="https://github.com/KhronosGroup/3DC-Asset-Creation/blob/main/asset-creation-guidelines/RealtimeAssetCreationGuidelines.md">Asset Creation Guidelines</a>.
         You can edit these settings and download a json file for future use.
@@ -480,7 +480,7 @@
       <p class="instructions">
         The dimensions of the product can be entered here and will be checked within the tolerance threshold specified by the schema.
       </p>
-      <p class="instructions">JSON object structure is <a href="https://github.com/KhronosGroup/3DC-Validator/blob/main/src/ProductInfoJSON.ts">specified here</a>.</p>
+      <p class="instructions">JSON object structure is <a href="https://github.com/KhronosGroup/gltf-asset-auditor/blob/main/src/ProductInfoJSON.ts">specified here</a>.</p>
       <div class="container">
         <div id="productInfoDropArea" class="drop-area">
           <h2>Product Info JSON</h2>
@@ -503,7 +503,7 @@
       </div>
       <div id="modelLoader">
         <p class="instructions">
-          Load the 3D model after editing / uploading the schema settings or some tests marked <span class="slow">slow</span> may not run properly.
+          Load the 3D model after editing / uploading the audit profile settings or some tests marked <span class="slow">slow</span> may not run properly.
         </p>
         <div class="container">
           <div id="modelDropArea" class="drop-area">
@@ -524,7 +524,7 @@
     </div>
 
     <div class="report-container">
-      <div class="report-title">Validation Report</div>
+      <div class="report-title">Audit Report</div>
       <table class="report" id="report">
         <tr><td>
           <p>

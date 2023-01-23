@@ -1,5 +1,5 @@
 // Note: these interfaces are not exhaustive and generally only cover the
-// attributes that are needed by the asset validator
+// attributes that are needed by the asset auditor
 // Full Schema: https://github.com/KhronosGroup/glTF/tree/main/specification/2.0/schema
 
 export interface GltfJsonBufferInterface {

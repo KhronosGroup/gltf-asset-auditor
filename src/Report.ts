@@ -31,7 +31,7 @@ export interface ReportInterface {
 }
 
 // All of the checks that are available. Will either be PASS, FAIL, or NOT TESTED
-// Specifies a link to the Asset Validator for more information about what the test is checking and why it is important.
+// Specifies a link to the Asset Auditor for more information about what the test is checking and why it is important.
 export class Report implements ReportInterface {
   fileSize = new ReportItem(
     'File Size',

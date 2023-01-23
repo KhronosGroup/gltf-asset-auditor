@@ -1,4 +1,4 @@
-# Khronos 3D Commerce Asset Validator
+# Khronos glTF Asset Auditor
 
 # Command Line Interface Example
 
