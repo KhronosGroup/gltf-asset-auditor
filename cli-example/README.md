@@ -4,23 +4,21 @@
 
 ## SPDX-License-Identifier: Apache-2.0
 
-This is a sub-project of the 3DC-Validator which shows how to implement a version from the command line, using Node.js
-
-**_NOTE_**: package.json is still pointing to @mikefesta/3dc-validator (development package) because this package has not yet been published to npm with the @khronos namespace. This message should be updated once published.
+This is a sub-project of the glTF Asset Auditor which shows how to implement a version from the command line, using Node.js
 
 ### Usage
 
-This folder, /cli, is designed to be extracted from the main project (3DC-Validator) and run on its own.
+This folder, /cli, is designed to be extracted from the main project (glTF Asset Auditor) and run on its own.
 
 You need to have **Node.js** installed on your system. This project was developed with v16.13.0, but any modern version should work.
 
-Dependencies need to be installed using npm. The main dependency is the 3DC-Validator and chalk is just used to add some color to the output.
+Dependencies need to be installed using npm. The main dependency is the glTF Asset Auditor and chalk is just used to add some color to the output.
 
 ```
 npm i
 ```
 
-The validator is now ready to run and the most basic usage is:
+The glTF Asset Auditor is now ready to run and the most basic usage is:
 
 ```
 node index.js {schema-json-filepath}.json {glb-model-filepath}.glb
@@ -52,9 +50,9 @@ The report will be printed to the console by default and will show PASS / FAIL /
 Example output:
 
 ```
--- 3D COMMERCE VALIDATOR --
+-- glTF Asset Auditor --
 * Version: 1.0.0
-==== Validation Report ====
+==== Audit Report ====
                               glTF Validator: PASS       | Errors: 0, Warnings: 0, Hints: 4, Info: 0
                                    File Size: NOT TESTED | 9kb
                               Triangle Count: NOT TESTED | 12
