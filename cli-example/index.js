@@ -1,7 +1,7 @@
 import chalk from 'chalk'; // For colored output
 import fs from 'fs';
 import path from 'path';
-import { Validator as Auditor } from '@mikefesta/3dc-validator';
+import { Auditor } from '@khronosgroup/gltf-asset-auditor';
 import { argv, exit } from 'process';
 
 let glbFilename = '';

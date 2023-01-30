@@ -33,7 +33,7 @@
   "dependencies": {
     "@babylonjs/core": "^5.35.1",
     "@babylonjs/loaders": "^5.35.1",
-    "@mikefesta/3dc-validator": "^1.0.0"
+    "@khronosgroup/gltf-asset-auditor": "^1.0.0"
   },
   "devDependencies": {
     "ts-loader": "^9.3.1",

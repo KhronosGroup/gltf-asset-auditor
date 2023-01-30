@@ -1,6 +1,6 @@
-import { SchemaJSONInterface } from '../node_modules/@mikefesta/3dc-validator/dist/SchemaJSON';
-import { Validator as Auditor } from '../node_modules/@mikefesta/3dc-validator/dist/Validator';
-import { GltfValidatorReportIssuesMessageInterface } from '../node_modules/@mikefesta/3dc-validator/dist/GltfValidatorReport';
+import { SchemaJSONInterface } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/SchemaJSON';
+import { Auditor } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/Auditor';
+import { GltfValidatorReportIssuesMessageInterface } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/GltfValidatorReport';
 import {
   ArcRotateCamera,
   Color4,
