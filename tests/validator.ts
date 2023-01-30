@@ -1,12 +1,12 @@
 import { expect } from 'chai';
-import { Validator } from '../src/Validator.js';
+import { Auditor } from '../src/Auditor.js';
 
-describe('validator', function () {
-  const v = new Validator();
+describe('auditor', function () {
+  const a = new Auditor();
 
   describe('version', function () {
     it('should match the current version', function () {
-      expect(v.version).to.equal('1.0.0');
+      expect(a.version).to.equal('1.0.0');
     });
   });
 });
