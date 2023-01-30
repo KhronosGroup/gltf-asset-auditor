@@ -1,17 +1,17 @@
 {
-  "name": "@khronosgroup/3dc-validator",
+  "name": "@khronosgroup/gltf-asset-auditor",
   "version": "1.0.0",
   "author": "Mike Festa",
   "description": "Package for checking a 3D model file against a 3D Commerce use case schema to provide PASS/FAIL validation",
   "license": "SPDX-License-Identifier: Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KhronosGroup/3DC-Validator"
+    "url": "https://github.com/KhronosGroup/gltf-asset-auditor"
   },
   "exports": {
-    ".": "./dist/Validator.js"
+    ".": "./dist/Auditor.js"
   },
-  "main": "dist/Validator.js",
+  "main": "dist/Auditor.js",
   "type": "module",
   "keywords": [
     "3d",
@@ -20,6 +20,7 @@
     "glb",
     "gltf",
     "khronos",
+    "auditor",
     "validator"
   ],
   "scripts": {

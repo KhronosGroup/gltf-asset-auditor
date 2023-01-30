@@ -1,6 +1,6 @@
-import { SchemaJSONInterface } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/SchemaJSON';
-import { gltfAssetAuditor } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/gltfAssetAuditor';
-import { GltfValidatorReportIssuesMessageInterface } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/GltfAuditReport';
+import { SchemaJSONInterface } from '../node_modules/@mikefesta/3dc-validator/dist/SchemaJSON';
+import { Validator as Auditor } from '../node_modules/@mikefesta/3dc-validator/dist/Validator';
+import { GltfValidatorReportIssuesMessageInterface } from '../node_modules/@mikefesta/3dc-validator/dist/GltfValidatorReport';
 import {
   ArcRotateCamera,
   Color4,
@@ -32,7 +32,7 @@ function clearReport() {
 }
 
 // Extract the csv data from the audit report and provide it as a file to the user
-function downloadReportCsv(auditor: gltfAssetAuditor) {
+function downloadReportCsv(auditor: Auditor) {
   const csvString = auditor.getReportCsv();
   const dataString = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
   const a = document.createElement('a');
@@ -42,7 +42,7 @@ function downloadReportCsv(auditor: gltfAssetAuditor) {
 }
 
 // Extract the json data from the audit report and provide it as a file to the user
-function downloadReportJson(auditor: gltfAssetAuditor) {
+function downloadReportJson(auditor: Auditor) {
   const jsonString = auditor.getReportJson();
   const dataString = 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonString);
   const a = document.createElement('a');
@@ -166,7 +166,7 @@ function getSchemaFromForm() {
 }
 
 // Load model action that loads a model (.glb or .gltf + files) from an <input> element
-async function loadModel(auditor: gltfAssetAuditor): Promise<void> {
+async function loadModel(auditor: Auditor): Promise<void> {
   try {
     // ensure the latest settings in the form are loaded, if the user did not save and close
     auditor.schema.loadFromSchemaObject(getSchemaFromForm());
@@ -265,7 +265,7 @@ async function loadModel(auditor: gltfAssetAuditor): Promise<void> {
 }
 
 // Read product info from a json file
-async function loadProductInfo(auditor: gltfAssetAuditor): Promise<void> {
+async function loadProductInfo(auditor: Auditor): Promise<void> {
   try {
     const input = $('productInfoInput') as HTMLInputElement;
     // V2: add another function that takes a json object with the product data
@@ -290,7 +290,7 @@ async function loadProductInfo(auditor: gltfAssetAuditor): Promise<void> {
 }
 
 // Read schema data from a json file
-async function loadSchema(auditor: gltfAssetAuditor): Promise<void> {
+async function loadSchema(auditor: Auditor): Promise<void> {
   try {
     // If there is a report already shown, get rid of it
     clearReport();
@@ -333,7 +333,7 @@ function removeHighlightClass(element: HTMLElement) {
 }
 
 // Show the report if both the schema and the model have been loaded
-function renderReport(auditor: gltfAssetAuditor) {
+function renderReport(auditor: Auditor) {
   try {
     if (!auditor.schema.loaded || !auditor.model.loaded) {
       // the report requires both files to be loaded
@@ -440,26 +440,26 @@ function reportError(message: string) {
 }
 
 // Action when the user clicks the save and close button
-function saveAndCloseSchema(auditor: gltfAssetAuditor) {
+function saveAndCloseSchema(auditor: Auditor) {
   auditor.schema.loadFromSchemaObject(getSchemaFromForm());
   renderReport(auditor);
   toggleEditSchema(auditor);
 }
 
 // The auditor can provided 3D Commerce recommended values
-function setSchemaWithRecommended(auditor: gltfAssetAuditor) {
+function setSchemaWithRecommended(auditor: Auditor) {
   updateSchemaForm(auditor.schema.getRecommended());
   auditor.schema.loadFromSchemaObject(getSchemaFromForm());
   renderReport(auditor); // if the model is already loaded
 }
 
 // Populates the form with the values already set in the auditor
-function setSchemaFormFromAuditor(auditor: gltfAssetAuditor) {
+function setSchemaFormFromAuditor(auditor: Auditor) {
   updateSchemaForm(auditor.schema.getJsonObject());
 }
 
 // Action when the user clicks the Edit Schema button
-function toggleEditSchema(auditor: gltfAssetAuditor) {
+function toggleEditSchema(auditor: Auditor) {
   if ($('editSchemaButton').style.display === 'none') {
     // Hide form
     $('schemaSettings').style.display = 'none';
@@ -553,7 +553,7 @@ function updateSchemaForm(schema: SchemaJSONInterface) {
 // Main function
 document.body.onload = () => {
   // Global auditor object
-  var auditor = new gltfAssetAuditor();
+  var auditor = new Auditor();
 
   // Setup Button Actions
   $('editSchemaButton').onclick = () => {

@@ -11,7 +11,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "@khronosgroup/gltf-asset-auditor": "^1.0.0",
+    "@mikefesta/3dc-validator": "^1.0.0",
     "chalk": "^5.0.1"
   },
   "devDependencies": {

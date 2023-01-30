@@ -1,7 +1,7 @@
 import chalk from 'chalk'; // For colored output
 import fs from 'fs';
 import path from 'path';
-import { gltfAssetAuditor } from '@khronosgroup/gltf-asset-auditor';
+import { Validator as Auditor } from '@mikefesta/3dc-validator';
 import { argv, exit } from 'process';
 
 let glbFilename = '';
@@ -145,7 +145,7 @@ const printWelcomeMessage = version => {
 // START
 try {
   const startTime = Date.now();
-  const auditor = new gltfAssetAuditor();
+  const auditor = new Auditor();
   auditor.decimalDisplayPrecision = 2;
   printWelcomeMessage(auditor.version);
 
