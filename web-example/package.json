@@ -1,7 +1,7 @@
 {
-  "name": "@khronosgroup/3dc-validator-web",
+  "name": "@khronosgroup/gltf-asset-auditor-web",
   "version": "1.0.0",
-  "description": "Web based single page application implementation of the 3dc-validator package",
+  "description": "Web based single page application implementation of the gltf-asset-auditor package",
   "main": "index.js",
   "scripts": {
     "test": "test",
@@ -15,20 +15,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/KhronosGroup/3DC-Validator"
+    "url": "https://github.com/KhronosGroup/gltf-asset-auditor/tree/main/web-example"
   },
   "keywords": [
-    "khronos",
     "3d",
     "asset",
-    "validator"
+    "commerce",
+    "glb",
+    "gltf",
+    "khronos",
+    "auditor",
+    "validator",
+    "web"
   ],
   "author": "Mike Festa",
   "license": "Apache-2.0",
   "dependencies": {
     "@babylonjs/core": "^5.35.1",
     "@babylonjs/loaders": "^5.35.1",
-    "@mikefesta/3dc-validator": "^1.0.0"
+    "@khronosgroup/gltf-asset-auditor": "^1.0.0"
   },
   "devDependencies": {
     "ts-loader": "^9.3.1",

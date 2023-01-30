@@ -4,15 +4,13 @@
 
 ## SPDX-License-Identifier: Apache-2.0
 
-This is a sub-project of the 3DC-Validator which shows how to implement a version from a web browser stand alone page.
-
-**_NOTE_**: package.json is still pointing to @mikefesta/3dc-validator (development package) because this package has not yet been published to npm with the @khronos namespace. This message should be updated once published.
+This is a sub-project of the glTF Asset Auditor which shows how to implement a version from a web browser stand alone page.
 
 ### Usage - Compile and Test Locally
 
 This project uses Node + webpack to build dist/main.js.
 
-Run npm i to install dependencies (3DC-Validator and Babylon.js).
+Run npm i to install dependencies (glTF Asset Auditor and Babylon.js).
 
 ```
 # Install Dependencies

@@ -38,7 +38,7 @@ const config = {
   resolve: {
     extensions: ['.tsx', '.ts', '.jsx', '.js', '...'],
     fallback: {
-      // This allows webpack to ignore imports to fs and path, which are Node.js specific but used in the 3DC-Validator module
+      // This allows webpack to ignore imports to fs and path, which are Node.js specific but used in the glTF Asset Auditor module
       fs: false,
       path: false,
     },

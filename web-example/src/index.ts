@@ -1,6 +1,6 @@
-import { SchemaJSONInterface } from '../node_modules/@mikefesta/3dc-validator/dist/SchemaJSON';
-import { Validator } from '../node_modules/@mikefesta/3dc-validator/dist/Validator';
-import { GltfValidatorReportIssuesMessageInterface } from '../node_modules/@mikefesta/3dc-validator/dist/GltfValidatorReport';
+import { SchemaJSONInterface } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/SchemaJSON';
+import { gltfAssetAuditor } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/gltfAssetAuditor';
+import { GltfValidatorReportIssuesMessageInterface } from '../node_modules/@khronosgroup/gltf-asset-auditor/dist/GltfAuditReport';
 import {
   ArcRotateCamera,
   Color4,
@@ -31,23 +31,23 @@ function clearReport() {
   }
 }
 
-// Extract the csv data from the validator report and provide it as a file to the user
-function downloadReportCsv(validator: Validator) {
-  const csvString = validator.getReportCsv();
+// Extract the csv data from the audit report and provide it as a file to the user
+function downloadReportCsv(auditor: gltfAssetAuditor) {
+  const csvString = auditor.getReportCsv();
   const dataString = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csvString);
   const a = document.createElement('a');
   a.href = dataString;
-  a.download = getFilenameWithTimestamp(validator.model.glb.filename) + '.csv';
+  a.download = getFilenameWithTimestamp(auditor.model.glb.filename) + '.csv';
   a.click();
 }
 
-// Extract the json data from the validator report and provide it as a file to the user
-function downloadReportJson(validator: Validator) {
-  const jsonString = validator.getReportJson();
+// Extract the json data from the audit report and provide it as a file to the user
+function downloadReportJson(auditor: gltfAssetAuditor) {
+  const jsonString = auditor.getReportJson();
   const dataString = 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonString);
   const a = document.createElement('a');
   a.href = dataString;
-  a.download = getFilenameWithTimestamp(validator.model.glb.filename) + '.json';
+  a.download = getFilenameWithTimestamp(auditor.model.glb.filename) + '.json';
   a.click();
 }
 
@@ -58,7 +58,7 @@ function downloadSchemaJson() {
   const dataString = 'data:text/json;charset=utf-8,' + encodeURIComponent(jsonString);
   const a = document.createElement('a');
   a.href = dataString;
-  a.download = '3dc-validator-schema.json';
+  a.download = 'gltf-asset-auditor-schema.json';
   a.click();
 }
 
@@ -166,28 +166,28 @@ function getSchemaFromForm() {
 }
 
 // Load model action that loads a model (.glb or .gltf + files) from an <input> element
-async function loadModel(validator: Validator): Promise<void> {
+async function loadModel(auditor: gltfAssetAuditor): Promise<void> {
   try {
     // ensure the latest settings in the form are loaded, if the user did not save and close
-    validator.schema.loadFromSchemaObject(getSchemaFromForm());
+    auditor.schema.loadFromSchemaObject(getSchemaFromForm());
     const input = $('modelInput') as HTMLInputElement;
     const modelCubeSvg = $('modelCubeSvg');
     const modelLoadingSpinner = $('modelLoadingSpinner');
 
     // Show a loading spinner
-    // Note the animation may not play smoothly if the validator is using all of the resources
+    // Note the animation may not play smoothly if the auditor is using all of the resources
     // V2: change the loading gif to something simpler. Perhaps use css to rotate it.
     modelCubeSvg.style.display = 'none';
     modelLoadingSpinner.style.display = 'block';
 
-    // Use the validator to load the model from the files array (can be just a single .glb file or .gltf + files)
-    await validator.model.loadFromFileInput(Array.from(input.files));
+    // Use the auditor to load the model from the files array (can be just a single .glb file or .gltf + files)
+    await auditor.model.loadFromFileInput(Array.from(input.files));
 
     // Remove the loading cube
     modelCubeSvg.style.display = '';
     modelLoadingSpinner.style.display = 'none';
 
-    if (validator.model.loaded) {
+    if (auditor.model.loaded) {
       // Show the 3D viewer
       $('modelIcon').classList.remove('fail');
       $('modelLoader').style.display = 'none';
@@ -200,9 +200,9 @@ async function loadModel(validator: Validator): Promise<void> {
       scene.clearColor = new Color4(1.0, 1.0, 1.0, 1.0);
 
       // Position the camera based on the model's bounding box
-      const height = validator.model.height.value as number;
-      const length = validator.model.length.value as number;
-      const width = validator.model.width.value as number;
+      const height = auditor.model.height.value as number;
+      const length = auditor.model.length.value as number;
+      const width = auditor.model.width.value as number;
       const cameraRadius = height + width + length;
       const minDimension = Math.min(height, length, width);
       const maxDimension = Math.max(height, length, width);
@@ -227,17 +227,17 @@ async function loadModel(validator: Validator): Promise<void> {
       // Start Babylon
       engine.runRenderLoop(() => scene.render());
 
-      // Load the model using the GLB data from the validator
-      const assetArrayBuffer = validator.model.glb.getBytes();
+      // Load the model using the GLB data from the auditor
+      const assetArrayBuffer = auditor.model.glb.getBytes();
       if (assetArrayBuffer) {
-        // Single glb with data available from the validator
+        // Single glb with data available from the auditor
         const assetBlob = new Blob([assetArrayBuffer]);
         const assetUrl = URL.createObjectURL(assetBlob);
         await SceneLoader.AppendAsync(assetUrl, undefined, scene, undefined, '.glb');
         $('model3dView').scrollIntoView();
       } else {
         // glTF + files, load from the file input form element
-        // The validator now converts .gltf multi-files into the .glb format, so
+        // The auditor now converts .gltf multi-files into the .glb format, so
         // this else won't be called, but I'm leaving it as a demo of how to
         // load .gltf + files in Babylon
         const files = Array.from(input.files);
@@ -257,7 +257,7 @@ async function loadModel(validator: Validator): Promise<void> {
     }
 
     // Show the report
-    renderReport(validator);
+    renderReport(auditor);
   } catch (err) {
     $('modelIcon').classList.add('fail');
     reportError((err as Error).message);
@@ -265,13 +265,13 @@ async function loadModel(validator: Validator): Promise<void> {
 }
 
 // Read product info from a json file
-async function loadProductInfo(validator: Validator): Promise<void> {
+async function loadProductInfo(auditor: gltfAssetAuditor): Promise<void> {
   try {
     const input = $('productInfoInput') as HTMLInputElement;
     // V2: add another function that takes a json object with the product data
     // that would make it easier to add editable input fields on the frontend
-    await validator.productInfo.loadFromFileInput(input.files[0]);
-    if (validator.productInfo.loaded) {
+    await auditor.productInfo.loadFromFileInput(input.files[0]);
+    if (auditor.productInfo.loaded) {
       $('productInfoIcon').classList.remove('fail');
       $('productInfoIcon').classList.add('pass');
     } else {
@@ -281,7 +281,7 @@ async function loadProductInfo(validator: Validator): Promise<void> {
 
     // Try to render the report, which will rerun it if already run
     // The report won't be ready if the model hasn't been loaded yet
-    renderReport(validator);
+    renderReport(auditor);
   } catch (err) {
     $('productInfoIcon').classList.remove('pass');
     $('productInfoIcon').classList.add('fail');
@@ -290,15 +290,15 @@ async function loadProductInfo(validator: Validator): Promise<void> {
 }
 
 // Read schema data from a json file
-async function loadSchema(validator: Validator): Promise<void> {
+async function loadSchema(auditor: gltfAssetAuditor): Promise<void> {
   try {
     // If there is a report already shown, get rid of it
     clearReport();
     const input = $('schemaInput') as HTMLInputElement;
-    await validator.schema.loadFromFileInput(input.files[0]);
-    // V2: Additional front-end validation and error messaging would be helpful
-    if (validator.schema.loaded) {
-      setSchemaFormFromValidator(validator);
+    await auditor.schema.loadFromFileInput(input.files[0]);
+    // V2: Additional front-end auditing and error messaging would be helpful
+    if (auditor.schema.loaded) {
+      setSchemaFormFromAuditor(auditor);
       $('schemaIcon').classList.remove('fail');
       $('schemaIcon').classList.add('pass');
     } else {
@@ -310,10 +310,10 @@ async function loadSchema(validator: Validator): Promise<void> {
     // it is recommended to load the model last, in which case this does nothing
     // Tests that need vertex indices calculated are slow, so they are not
     // enabled by default. If the model is loaded before the schema, those
-    // indices are not calculated because the validator does not yet know
+    // indices are not calculated because the auditor does not yet know
     // if they are required.
     // V2: take out renderReport and don't allow the schema to be changed after the model is loaded
-    renderReport(validator);
+    renderReport(auditor);
   } catch (err) {
     $('schemaIcon').classList.remove('pass');
     $('schemaIcon').classList.add('fail');
@@ -333,19 +333,19 @@ function removeHighlightClass(element: HTMLElement) {
 }
 
 // Show the report if both the schema and the model have been loaded
-function renderReport(validator: Validator) {
+function renderReport(auditor: gltfAssetAuditor) {
   try {
-    if (!validator.schema.loaded || !validator.model.loaded) {
+    if (!auditor.schema.loaded || !auditor.model.loaded) {
       // the report requires both files to be loaded
       return;
     }
     // generate (or re-generate) the report
-    validator.generateReport();
+    auditor.generateReport();
 
     // show the results
     const reportTable = $('report');
     clearReport();
-    validator.report.getItems().forEach((item: any) => {
+    auditor.report.getItems().forEach((item: any) => {
       const row = document.createElement('tr');
       const name = document.createElement('td');
 
@@ -369,10 +369,10 @@ function renderReport(validator: Validator) {
       message.appendChild(document.createTextNode(item.message));
       // Display extra info from the glTF Validator report
       if (item.name == 'glTF Validator') {
-        if (validator.model.gltfValidatorReport.issues.messages.length > 0) {
+        if (auditor.model.gltfValidatorReport.issues.messages.length > 0) {
           const ul = document.createElement('ul');
           const error_names = ['Error', 'Warning', 'Info', 'Hint'];
-          validator.model.gltfValidatorReport.issues.messages.forEach(
+          auditor.model.gltfValidatorReport.issues.messages.forEach(
             (message: GltfValidatorReportIssuesMessageInterface) => {
               const li = document.createElement('li');
               li.appendChild(
@@ -413,7 +413,7 @@ function renderReport(validator: Validator) {
     const downloadJsonButton = document.createElement('button');
     downloadJsonButton.setAttribute('class', 'download');
     downloadJsonButton.onclick = () => {
-      downloadReportJson(validator);
+      downloadReportJson(auditor);
     };
     downloadJsonButton.appendChild(document.createTextNode('Download Report in JSON'));
     td.appendChild(downloadJsonButton);
@@ -423,7 +423,7 @@ function renderReport(validator: Validator) {
     const downloadCsvButton = document.createElement('button');
     downloadCsvButton.setAttribute('class', 'download');
     downloadCsvButton.onclick = () => {
-      downloadReportCsv(validator);
+      downloadReportCsv(auditor);
     };
     downloadCsvButton.appendChild(document.createTextNode('Download Report in CSV'));
     td.appendChild(downloadCsvButton);
@@ -440,33 +440,33 @@ function reportError(message: string) {
 }
 
 // Action when the user clicks the save and close button
-function saveAndCloseSchema(validator: Validator) {
-  validator.schema.loadFromSchemaObject(getSchemaFromForm());
-  renderReport(validator);
-  toggleEditSchema(validator);
+function saveAndCloseSchema(auditor: gltfAssetAuditor) {
+  auditor.schema.loadFromSchemaObject(getSchemaFromForm());
+  renderReport(auditor);
+  toggleEditSchema(auditor);
 }
 
-// The validator can provided 3D Commerce recommended values
-function setSchemaWithRecommended(validator: Validator) {
-  updateSchemaForm(validator.schema.getRecommended());
-  validator.schema.loadFromSchemaObject(getSchemaFromForm());
-  renderReport(validator); // if the model is already loaded
+// The auditor can provided 3D Commerce recommended values
+function setSchemaWithRecommended(auditor: gltfAssetAuditor) {
+  updateSchemaForm(auditor.schema.getRecommended());
+  auditor.schema.loadFromSchemaObject(getSchemaFromForm());
+  renderReport(auditor); // if the model is already loaded
 }
 
-// Populates the form with the values already set in the validator
-function setSchemaFormFromValidator(validator: Validator) {
-  updateSchemaForm(validator.schema.getJsonObject());
+// Populates the form with the values already set in the auditor
+function setSchemaFormFromAuditor(auditor: gltfAssetAuditor) {
+  updateSchemaForm(auditor.schema.getJsonObject());
 }
 
 // Action when the user clicks the Edit Schema button
-function toggleEditSchema(validator: Validator) {
+function toggleEditSchema(auditor: gltfAssetAuditor) {
   if ($('editSchemaButton').style.display === 'none') {
     // Hide form
     $('schemaSettings').style.display = 'none';
     $('editSchemaButton').style.display = 'block';
   } else {
     // Show form
-    setSchemaFormFromValidator(validator);
+    setSchemaFormFromAuditor(auditor);
     $('schemaSettings').style.display = 'block';
     $('editSchemaButton').style.display = 'none';
   }
@@ -552,30 +552,30 @@ function updateSchemaForm(schema: SchemaJSONInterface) {
 
 // Main function
 document.body.onload = () => {
-  // Global validator object
-  var validator = new Validator();
+  // Global auditor object
+  var auditor = new gltfAssetAuditor();
 
   // Setup Button Actions
   $('editSchemaButton').onclick = () => {
-    toggleEditSchema(validator);
+    toggleEditSchema(auditor);
   };
   $('closeSchemaButton').onclick = () => {
-    toggleEditSchema(validator);
+    toggleEditSchema(auditor);
   };
   $('saveAndCloseSchemaButton').onclick = () => {
-    saveAndCloseSchema(validator);
+    saveAndCloseSchema(auditor);
   };
   $('schemaDefaults').onclick = () => {
-    setSchemaWithRecommended(validator);
+    setSchemaWithRecommended(auditor);
   };
   $('downloadSchemaJson').onclick = downloadSchemaJson;
 
   // Load default schema
-  setSchemaWithRecommended(validator);
+  setSchemaWithRecommended(auditor);
 
   // Show the version
-  $('version').appendChild(document.createTextNode('Version: ' + validator.version));
-  setSchemaFormFromValidator(validator);
+  $('version').appendChild(document.createTextNode('Version: ' + auditor.version));
+  setSchemaFormFromAuditor(auditor);
 
   // Set up drag and drop area highlighting
   ['modelDropArea', 'productInfoDropArea', 'schemaDropArea'].forEach(elementName => {
@@ -596,7 +596,7 @@ document.body.onload = () => {
     preventDefaults(ev);
     removeHighlightClass($('modelDropArea'));
     ($('modelInput') as HTMLInputElement).files = ev.dataTransfer.files;
-    loadModel(validator);
+    loadModel(auditor);
   });
 
   // Set up drag and drop product info load
@@ -604,7 +604,7 @@ document.body.onload = () => {
     preventDefaults(ev);
     removeHighlightClass($('productInfoDropArea'));
     ($('productInfoInput') as HTMLInputElement).files = ev.dataTransfer.files;
-    loadProductInfo(validator);
+    loadProductInfo(auditor);
   });
 
   // Set up drag and drop schema load
@@ -612,19 +612,19 @@ document.body.onload = () => {
     preventDefaults(ev);
     removeHighlightClass($('schemaDropArea'));
     ($('schemaInput') as HTMLInputElement).files = ev.dataTransfer.files;
-    loadSchema(validator);
+    loadSchema(auditor);
   });
 
   // Add listeners to traditional file input elements
   $('modelInput').addEventListener('change', ev => {
-    loadModel(validator);
+    loadModel(auditor);
   });
 
   $('productInfoInput').addEventListener('change', ev => {
-    loadProductInfo(validator);
+    loadProductInfo(auditor);
   });
 
   $('schemaInput').addEventListener('change', ev => {
-    loadSchema(validator);
+    loadSchema(auditor);
   });
 };
