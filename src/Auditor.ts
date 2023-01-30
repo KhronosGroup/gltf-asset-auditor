@@ -5,7 +5,7 @@ import { Report, ReportInterface } from './Report.js';
 import { ReportJSON } from './ReportJSON.js';
 import { Schema, SchemaInterface } from './Schema.js';
 
-export interface ValidatorInterface {
+export interface AuditorInterface {
   decimalDisplayPrecision: number;
   model: ModelInterface;
   productInfo: ProductInfoInterface;
@@ -18,10 +18,10 @@ export interface ValidatorInterface {
   getReportJson: () => string;
 }
 
-export class Validator implements ValidatorInterface {
+export class Auditor implements AuditorInterface {
   decimalDisplayPrecision = 3; // Used for display only (not comparisons), can be changed before running generateReport()
   model = null as unknown as ModelInterface;
-  productInfo = new ProductInfo(); // This is optional and can provide more specific per product validation
+  productInfo = new ProductInfo(); // This is optional and can provide more specific per product auditing
   report = new Report();
   reportReady = false;
   schema = new Schema();

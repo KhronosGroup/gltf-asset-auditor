@@ -104,7 +104,7 @@ export class Primitive implements PrimitiveInterface {
           // https://github.com/KhronosGroup/glTF/issues/1362
           // The position data is copied to a new location in the binary data
           // XYZ vertices and edges are different from UV vertices and edges
-          // To validate certain features, such as Hard Edges and Non-Manifold Edges, XYZ vertex indices need to be computed
+          // To audit certain features, such as Hard Edges and Non-Manifold Edges, XYZ vertex indices need to be computed
           // WARNING: This can get really slow with a lot of vertices, which is why it is only runs if checksRequireXyzIndices
           if (this.checksRequireXyzIndices) {
             if (this.verticesXyz.length === 0) {
@@ -386,7 +386,7 @@ export class Primitive implements PrimitiveInterface {
         }
         if (xyzData && uvData) {
           // Calculate min/max density as 0-1 UV percentage per meter.
-          // The pixel density depends on the texture resolution and is computed in Validator.ts vs all image files.
+          // The pixel density depends on the texture resolution and is computed in Auditor.ts vs all image files.
           // V2: It would be preferable to compute pixels here using only images linked to this primitive's material
           const meshArea = this.trianglesXyz[this.trianglesXyz.length - 1].area;
           const uvArea = this.trianglesUv[this.trianglesUv.length - 1].area;

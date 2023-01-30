@@ -18,9 +18,10 @@ import { NullEngine } from '@babylonjs/core/Engines/nullEngine.js';
 import { Logger } from '@babylonjs/core/Misc/logger.js';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader.js';
 import { Scene } from '@babylonjs/core/scene.js';
-import { ValidatorInterface } from './Validator.js';
+import { AuditorInterface } from './Auditor.js';
 
 export interface ModelInterface {
+  auditor: AuditorInterface;
   colorValueMax: LoadableAttributeInterface;
   colorValueMin: LoadableAttributeInterface;
   fileSizeInKb: LoadableAttributeInterface;
@@ -57,7 +58,6 @@ export interface ModelInterface {
     max: LoadableAttributeInterface;
     min: LoadableAttributeInterface;
   };
-  validator: ValidatorInterface;
   width: LoadableAttributeInterface;
   getAttributes: () => LoadableAttributeInterface[];
   loadFromFileInput(files: File[]): Promise<void>;
@@ -66,6 +66,7 @@ export interface ModelInterface {
 }
 
 export class Model implements ModelInterface {
+  auditor = null as unknown as AuditorInterface;
   colorValueMax = new LoadableAttribute('Max HSV color value', 0);
   colorValueMin = new LoadableAttribute('Min HSV color value', 0);
   fileSizeInKb = new LoadableAttribute('File size in Kb', 0);
@@ -102,12 +103,11 @@ export class Model implements ModelInterface {
     max: new LoadableAttribute('Max V value', 0),
     min: new LoadableAttribute('Min V value', 0),
   };
-  validator = null as unknown as ValidatorInterface;
   width = new LoadableAttribute('Width in Meters', 0);
 
-  constructor(validator: ValidatorInterface) {
+  constructor(auditor: AuditorInterface) {
     // Link back to the parent for access to the schema
-    this.validator = validator;
+    this.auditor = auditor;
 
     // suppress NullEngine welcome message
     Logger.LogLevels = Logger.WarningLogLevel;
@@ -481,11 +481,7 @@ export class Model implements ModelInterface {
       // exclude the auto-generated __root__ node and anything else with no vertices
       if (mesh.isVerticesDataPresent(VertexBuffer.PositionKind)) {
         this.primitives.push(
-          new Primitive(
-            mesh,
-            this.validator.schema.checksRequireUvIndices,
-            this.validator.schema.checksRequireXyzIndices,
-          ),
+          new Primitive(mesh, this.auditor.schema.checksRequireUvIndices, this.auditor.schema.checksRequireXyzIndices),
         );
       }
     });

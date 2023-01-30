@@ -16,7 +16,7 @@ export interface NodeTransformInterface {
   scaleIsOne: () => boolean;
 }
 
-// Location, Rotation, and Scale data, used to validate the Root Node
+// Location, Rotation, and Scale data, used to check the Root Node
 export class NodeTransform implements NodeTransformInterface {
   location = {
     x: new LoadableAttribute('X Location', 0),
