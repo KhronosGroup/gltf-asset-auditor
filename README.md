@@ -2,6 +2,8 @@
 
 ## SPDX-License-Identifier: Apache-2.0
 
+Try out the Web Example: https://www.khronos.org/gltf/gltf-asset-auditor/
+
 This is a typescript package that contains classes for checking a 3D file, in glTF format (.glb or .gltf), against a requirements schema definition in JSON. The schema file determines which of the checks, listed below, get run and what the passing values are. The result of each test is Pass, Fail, or Not Tested and some additional information may be available in a message.
 
 This package can be used by both a command line interface (node), as well as a front-end web interface. The samples directory includes a command line interface (cli) as well as a web-based implementation to demonstrate how the package can be used in your own project.
