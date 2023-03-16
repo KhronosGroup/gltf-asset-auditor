@@ -1,6 +1,6 @@
 {
   "name": "@khronosgroup/gltf-asset-auditor",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Mike Festa",
   "description": "Package for checking a 3D model file against a 3D Commerce use case schema to provide PASS/FAIL validation",
   "license": "SPDX-License-Identifier: Apache-2.0",

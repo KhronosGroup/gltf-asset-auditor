@@ -1,6 +1,6 @@
 {
   "name": "@khronosgroup/gltf-asset-auditor-web",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Web based single page application implementation of the gltf-asset-auditor package",
   "main": "index.js",
   "scripts": {
@@ -33,7 +33,7 @@
   "dependencies": {
     "@babylonjs/core": "^5.35.1",
     "@babylonjs/loaders": "^5.35.1",
-    "@khronosgroup/gltf-asset-auditor": "^1.0.0"
+    "@khronosgroup/gltf-asset-auditor": "^1.0.1"
   },
   "devDependencies": {
     "ts-loader": "^9.3.1",
