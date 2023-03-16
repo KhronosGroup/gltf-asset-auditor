@@ -245,15 +245,17 @@ export default class Glb implements GlbInterface {
     delete gltfJson.buffers[0].uri;
 
     // Replace the uri with a bufferView for all matched images
-    gltfJson.images.forEach(image => {
-      // Note: not checking if the uri is base64
-      const bufferIndex = bufferMap.get(image.uri);
-      if (bufferIndex) {
-        delete image.uri;
-        image.bufferView = bufferIndex;
-        // Note: mimeType should already be set
-      }
-    });
+    if (gltfJson.images) {
+      gltfJson.images.forEach(image => {
+        // Note: not checking if the uri is base64
+        const bufferIndex = bufferMap.get(image.uri);
+        if (bufferIndex) {
+          delete image.uri;
+          image.bufferView = bufferIndex;
+          // Note: mimeType should already be set
+        }
+      });
+    }
 
     // reference: https://github.com/sbtron/makeglb/blob/master/index.html
     const enc = new TextEncoder();
