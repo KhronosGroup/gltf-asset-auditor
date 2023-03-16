@@ -927,7 +927,7 @@ export class Auditor implements AuditorInterface {
         let failingImageList = [] as string[];
         if (!pbrMaxOK) {
           this.model.images.forEach(image => {
-            if (image.maxValue > this.schema.pbrColorMax.value) {
+            if (image.maxValue > this.schema.pbrColorMax.value && image.usedForBaseColor) {
               failingImageList.push(image.name ?? 'unnamed');
             }
           });
@@ -949,7 +949,7 @@ export class Auditor implements AuditorInterface {
         let failingImageList = [] as string[];
         if (!pbrMinOK) {
           this.model.images.forEach(image => {
-            if (image.minValue < this.schema.pbrColorMin.value) {
+            if (image.minValue < this.schema.pbrColorMin.value && image.usedForBaseColor) {
               failingImageList.push(image.name ?? 'unnamed');
             }
           });
