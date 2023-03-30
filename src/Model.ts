@@ -458,8 +458,10 @@ export class Model implements ModelInterface {
     await this.runGltfValidatorWithBytes(glb.getBytes());
 
     // Note: the file was previously loaded with GltfFileLoader to extract the JSON/bin
-    // Here it is loaded a 2nd time by SceneLoader. There might be a more
-    // efficient way to use what's already been loaded.
+    // BUG: SceneLoader is not currently able to load a model with draco compression in the Node.js context
+    // GltfFileLoader is able to read the file, but doesn't place the model into the scene
+    // In a browser context, additional files are loaded for decompressing using XMLHttpRequest
+    // https://forum.babylonjs.com/t/what-pluginextension-string-should-be-used-for-draco-compression-with-base64-data-in-sceneloader-appendasync/39074/2
     await SceneLoader.AppendAsync('', glb.getBase64String(), this.scene);
 
     // Loading / calculating values in separate functions to keep loadFromGlb easier to read

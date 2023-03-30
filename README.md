@@ -42,7 +42,15 @@ There are two example implementations included:
 
 ## Unit Tests
 
-TODO: I need to copy the unit tests project here.
+Unit tests can be run with
+
+```
+npm run test
+```
+
+## Known Issues
+
+- Files with draco mesh compression are not working - see: https://github.com/KhronosGroup/gltf-asset-auditor/issues/2
 
 ## Product Info JSON file
 
