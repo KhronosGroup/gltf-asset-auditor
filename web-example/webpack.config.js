@@ -7,12 +7,6 @@ const isProduction = process.env.NODE_ENV == 'production';
 const stylesHandler = 'style-loader';
 
 const config = {
-  devServer: {
-    static: {
-        directory: path.join(__dirname, '/dist/'),
-    },
-    hot: true,
-},
   entry: './src/index.ts',
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -52,7 +46,6 @@ const config = {
 };
 
 module.exports = () => {
-  
   if (isProduction) {
     config.mode = 'production';
   } else {
