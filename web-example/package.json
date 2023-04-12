@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
+    "startDev": "webpack-dev-server --open",
     "help": "webpack --help",
     "init": "webpack-cli init",
     "start": "webpack --config webpack.config.js --watch",
@@ -39,6 +40,7 @@
     "ts-loader": "^9.3.1",
     "tslib": "^2.4.0",
     "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0"
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.13.2"
   }
 }
