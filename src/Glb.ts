@@ -314,7 +314,7 @@ export default class Glb implements GlbInterface {
     // images
     imageBuffers.forEach(imageBuffer => {
       for (let i = 0; i < imageBuffer.length; i++) {
-        dataView.setUint32(bufferIndex, imageBuffer[i], true);
+        dataView.setUint8(bufferIndex, imageBuffer[i]); // change setUint32 to the setUint8
         bufferIndex++;
       }
       bufferIndex = this.alignedLength(bufferIndex);
