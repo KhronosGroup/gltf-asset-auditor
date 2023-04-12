@@ -1,6 +1,6 @@
 {
   "name": "@khronosgroup/gltf-asset-auditor-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Mike Festa",
   "description": "Read a glTF file and a JSON schema definition to perform a series of pass/fail checks based on the technical requirements and best practices described in the 3D Commerce Real-time Asset Creation Guidelines",
   "license": "SPDX-License-Identifier: Apache-2.0",
@@ -11,7 +11,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "@khronosgroup/gltf-asset-auditor": "^1.0.2",
+    "@khronosgroup/gltf-asset-auditor": "^1.0.3",
     "chalk": "^5.0.1"
   },
   "devDependencies": {
