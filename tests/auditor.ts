@@ -6,7 +6,7 @@ describe('auditor', function () {
 
   describe('version', function () {
     it('should match the current version', function () {
-      expect(a.version).to.equal('1.0.2');
+      expect(a.version).to.equal('1.0.4');
     });
   });
 });

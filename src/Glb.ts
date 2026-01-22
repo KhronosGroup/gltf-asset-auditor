@@ -5,7 +5,6 @@ import { NullEngine } from '@babylonjs/core/Engines/nullEngine.js';
 import { Scene } from '@babylonjs/core/scene.js';
 import { GLTFFileLoader } from '@babylonjs/loaders';
 import '@babylonjs/loaders/glTF/2.0/glTFLoader.js';
-import { buffer } from 'stream/consumers';
 
 export interface GlbInterface {
   arrayBuffer: ArrayBuffer;
@@ -66,7 +65,8 @@ export default class Glb implements GlbInterface {
       // config.resolve.fallback.path = false
       const { promises } = await import('fs');
       const { sep } = await import('path');
-      this.arrayBuffer = await promises.readFile(filePath);
+      const nodeBuffer = await promises.readFile(filePath);
+      this.arrayBuffer = nodeBuffer.buffer.slice(nodeBuffer.byteOffset, nodeBuffer.byteOffset + nodeBuffer.byteLength);
       this.filename = filePath.substring(filePath.lastIndexOf(sep) + 1);
     } catch (err) {
       throw new Error('Unable to get buffer from filepath');
@@ -336,7 +336,8 @@ export default class Glb implements GlbInterface {
       fileLoader.loadFile(
         scene,
         this.getBase64String(),
-        data => {
+        '', // rootUrl
+        (data: any) => {
           this.json = data.json;
           this.bin = data.bin;
           resolve();
@@ -345,7 +346,7 @@ export default class Glb implements GlbInterface {
           // progress. nothing to do
         },
         true,
-        err => {
+        () => {
           reject();
         },
       );

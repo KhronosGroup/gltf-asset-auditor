@@ -12,8 +12,8 @@ import { VertexBuffer } from '@babylonjs/core/Buffers/buffer.js';
 export interface PrimitiveInterface {
   checksRequireUvIndices: boolean;
   checksRequireXyzIndices: boolean;
-  densityMax: LoadableAttributeInterface;
-  densityMin: LoadableAttributeInterface;
+  densityMax: LoadableAttributeInterface<number>;
+  densityMin: LoadableAttributeInterface<number>;
   edgesUv: EdgeUvInterface[];
   edgesXyz: EdgeXyzInterface[];
   hardEdgeCount: number;

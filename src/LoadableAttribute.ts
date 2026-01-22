@@ -1,22 +1,22 @@
-export interface LoadableAttributeInterface {
+export interface LoadableAttributeInterface<T> {
   loaded: boolean;
   name: string;
-  value: boolean | number | string;
-  loadValue: (value: boolean | number | string) => void;
+  value: T;
+  loadValue: (value: T) => void;
 }
 
 // Helper class to keep track of when values have been loaded
-export class LoadableAttribute implements LoadableAttributeInterface {
+export class LoadableAttribute<T> implements LoadableAttributeInterface<T> {
   loaded = false;
-  name = '';
-  value = undefined as unknown as boolean | number | string;
+  name: string;
+  value: T;
 
-  constructor(name: string, defaultValue: boolean | number | string) {
+  constructor(name: string, defaultValue: T) {
     this.name = name;
     this.value = defaultValue;
   }
 
-  loadValue(value: boolean | number | string) {
+  loadValue(value: T) {
     this.value = value;
     this.loaded = true;
   }

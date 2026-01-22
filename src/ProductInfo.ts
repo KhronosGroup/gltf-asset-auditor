@@ -2,11 +2,11 @@ import { LoadableAttribute, LoadableAttributeInterface } from './LoadableAttribu
 import { ProductInfoJSONInterface } from './ProductInfoJSON.js';
 
 export interface ProductInfoInterface {
-  height: LoadableAttributeInterface;
-  length: LoadableAttributeInterface;
-  width: LoadableAttributeInterface;
+  height: LoadableAttributeInterface<number>;
+  length: LoadableAttributeInterface<number>;
+  width: LoadableAttributeInterface<number>;
   loaded: boolean;
-  getAttributes: () => LoadableAttributeInterface[];
+  getAttributes: () => LoadableAttributeInterface<number>[];
   loadFromFileInput(file: File): Promise<void>;
   loadFromFileSystem(filepath: string): Promise<void>;
 }

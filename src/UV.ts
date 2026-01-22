@@ -7,16 +7,16 @@ import { VertexUvInterface } from './VertexUv.js';
 
 // Group min/max into a single object. Only used in this file for now.
 interface MaxMinLoadableAttributeInterface {
-  max: LoadableAttributeInterface;
-  min: LoadableAttributeInterface;
+  max: LoadableAttributeInterface<number>;
+  min: LoadableAttributeInterface<number>;
 }
 
 export interface UVInterface {
   edges: EdgeUvInterface[];
-  invertedTriangleCount: LoadableAttributeInterface;
+  invertedTriangleCount: LoadableAttributeInterface<number>;
   islands: UvIslandInterface[];
   name: string;
-  overlapCount: LoadableAttributeInterface;
+  overlapCount: LoadableAttributeInterface<number>;
   triangles: TriangleUvInterface[];
   pixelGrid: SquareUvInterface[];
   u: MaxMinLoadableAttributeInterface;

@@ -1,9 +1,9 @@
 import { LoadableAttribute, LoadableAttributeInterface } from './LoadableAttribute.js';
 
 export interface Vector3LoadableAttributeInterface {
-  x: LoadableAttributeInterface;
-  y: LoadableAttributeInterface;
-  z: LoadableAttributeInterface;
+  x: LoadableAttributeInterface<number>;
+  y: LoadableAttributeInterface<number>;
+  z: LoadableAttributeInterface<number>;
 }
 
 export interface NodeTransformInterface {

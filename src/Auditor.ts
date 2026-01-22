@@ -25,7 +25,7 @@ export class Auditor implements AuditorInterface {
   report = new Report();
   reportReady = false;
   schema = new Schema();
-  version = '1.0.3';
+  version = '1.0.4';
 
   constructor() {
     // Model needs access to this.schema to know if indices need to be calculated or not
