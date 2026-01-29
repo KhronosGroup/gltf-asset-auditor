@@ -31,14 +31,14 @@
   "author": "Mike Festa",
   "license": "Apache-2.0",
   "dependencies": {
-    "@babylonjs/core": "^5.35.1",
-    "@babylonjs/loaders": "^5.35.1",
+    "@babylonjs/core": "^8.47.0",
+    "@babylonjs/loaders": "^8.47.0",
     "@khronosgroup/gltf-asset-auditor": "^1.0.4"
   },
   "devDependencies": {
-    "ts-loader": "^9.3.1",
-    "tslib": "^2.4.0",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.10.0"
+    "ts-loader": "^9.5.4",
+    "tslib": "^2.8.1",
+    "webpack": "^5.104.1",
+    "webpack-cli": "^6.0.1"
   }
 }

@@ -12,9 +12,9 @@
   "type": "module",
   "dependencies": {
     "@khronosgroup/gltf-asset-auditor": "^1.0.4",
-    "chalk": "^5.0.1"
+    "chalk": "^5.6.2"
   },
   "devDependencies": {
-    "tslib": "^2.4.0"
+    "tslib": "^2.8.1"
   }
 }
