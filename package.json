@@ -6,7 +6,7 @@
   "license": "SPDX-License-Identifier: Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/KhronosGroup/gltf-asset-auditor"
+    "url": "git+https://github.com/KhronosGroup/gltf-asset-auditor.git"
   },
   "exports": {
     ".": {
