@@ -1,6 +1,6 @@
 {
   "name": "@khronosgroup/gltf-asset-auditor",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "author": "Mike Festa",
   "description": "Package for checking a 3D model file against a 3D Commerce use case schema to provide PASS/FAIL validation",
   "license": "SPDX-License-Identifier: Apache-2.0",
@@ -35,19 +35,23 @@
     "test": "mocha -n loader=ts-node/esm 'tests/**/*.ts'"
   },
   "dependencies": {
-    "@babylonjs/core": "^8.47.0",
-    "@babylonjs/loaders": "^8.47.0",
+    "@babylonjs/core": "^8.55.3",
+    "@babylonjs/loaders": "^8.55.3",
     "canvas": "^3.2.1",
     "gltf-validator": "^2.0.0-dev.3.10"
   },
   "devDependencies": {
     "@types/chai": "^5.2.3",
     "@types/mocha": "^10.0.10",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.5.0",
     "chai": "^6.2.2",
     "mocha": "^11.7.5",
     "ts-node": "^10.9.2",
     "tslib": "^2.8.1",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "diff": "^8.0.3",
+    "serialize-javascript": "^7.0.2"
   }
 }
