@@ -11,7 +11,7 @@
   "main": "index.js",
   "type": "module",
   "dependencies": {
-    "@khronosgroup/gltf-asset-auditor": "^1.0.5",
+    "@khronosgroup/gltf-asset-auditor": "^1.0.6",
     "chalk": "^6.0.0"
   },
   "devDependencies": {
