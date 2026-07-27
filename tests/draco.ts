@@ -1,8 +1,9 @@
 import { expect } from 'chai';
 import { Auditor } from '../src/Auditor.js';
 
-// Note: As of version 1.0.4 with Babylon 8.47.0 this will FAIL
-// This is a known issue, but I'm leaving this test in the hope that it gets fixed in the next version
+// Note: As of version 1.0.6 with Babylon 9.18.0 this will FAIL
+// This is a known issue - a draco mesh cannot be loaded from a node environment
+// Hoping that it will be working in the future
 // https://github.com/KhronosGroup/gltf-asset-auditor/issues/2
 describe('loading a model with draco compression (WILL FAIL)', function () {
   const a = new Auditor();
