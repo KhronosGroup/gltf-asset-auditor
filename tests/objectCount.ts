@@ -149,3 +149,31 @@ describe('object count failing report', function () {
     });
   });
 });
+
+describe('min primitive count report', function () {
+  const a = new Auditor();
+
+  before('load model and schema', async function () {
+    try {
+      await a.model.loadFromFileSystem(['tests/models/blender-default-cube-passing.glb']);
+    } catch (err) {
+      throw new Error('Unable to load test model: blender-default-cube-passing.glb');
+    }
+    try {
+      await a.schema.loadFromFileSystem('tests/schemas/object-count/object-count-min-primitives.json');
+    } catch (err) {
+      throw new Error('Unable to load test schema: object-count-min-primitives.json');
+    }
+    await a.generateReport();
+  });
+
+  it('should report being under the min primitive count', function () {
+    expect(a.schema.minPrimitiveCount.value).to.equal(2);
+    expect(a.schema.maxPrimitiveCount.value).to.equal(-1);
+    expect(a.model.primitiveCount.value).to.equal(1);
+    expect(a.reportReady).to.be.true;
+    expect(a.report.primitiveCount.tested).to.be.true;
+    expect(a.report.primitiveCount.pass).to.be.false;
+    expect(a.report.primitiveCount.message).to.equal('1 < 2');
+  });
+});
