@@ -531,9 +531,9 @@ export class Auditor implements AuditorInterface {
       this.report.primitiveCount.skipTestWithMessage(this.model.primitiveCount.value.toLocaleString());
     } else if (this.schema.maxPrimitiveCount.value === -1) {
       // Check only the min primitive count
-      const primitiveCountOK = this.model.primitiveCount.value >= this.schema.maxPrimitiveCount.value;
+      const primitiveCountOK = this.model.primitiveCount.value >= this.schema.minPrimitiveCount.value;
       const primitiveCountMessage =
-        this.model.primitiveCount.value + (primitiveCountOK ? ' >= ' : ' < ') + this.schema.maxPrimitiveCount.value;
+        this.model.primitiveCount.value + (primitiveCountOK ? ' >= ' : ' < ') + this.schema.minPrimitiveCount.value;
       this.report.primitiveCount.test(primitiveCountOK, primitiveCountMessage);
     } else if (this.schema.minPrimitiveCount.value === -1) {
       // Check only the max mesh count
